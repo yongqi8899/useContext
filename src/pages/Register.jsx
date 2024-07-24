@@ -27,7 +27,7 @@ export default function Register() {
       const data = await res.json();
       if (!res.ok) {
         setError(data.error || "Registration failed");
-        toast.error({errorMessage} || "Registration failed");
+        toast.error( "Registration failed");
         return null;
       }
       return data;
@@ -55,11 +55,11 @@ export default function Register() {
 
   return (
     <>
-      <div className="hero min-h-screen bg-base-200">
+      <div className="min-h-screen hero bg-base-200">
         <div className="text-center hero-content">
           <div className="max-w-md">
             <h3 className="mb-5 text-5xl font-bold text-teal-400">Register</h3>
-            <form className="card shadow-xl p-10" onSubmit={handleSubmit}>
+            <form className="p-10 shadow-xl card" onSubmit={handleSubmit}>
               <div className="form-control">
                 <label className="label" htmlFor="firstname">
                   <span className="label-text">Firstname</span>
@@ -118,10 +118,10 @@ export default function Register() {
                   Login
                 </NavLink>
               </p>
-              <div className="flex form-control mt-6">
+              <div className="flex mt-6 form-control">
                 <button
                   type="submit"
-                  className="btn btn-primary bg-teal-400 hover:bg-teal-600 hover:border-transparent border-transparent text-white"
+                  className="text-white bg-teal-400 border-transparent btn btn-primary hover:bg-teal-600 hover:border-transparent"
                 >
                   Register
                 </button>
