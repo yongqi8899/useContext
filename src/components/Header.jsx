@@ -3,8 +3,7 @@ import { useState, useContext } from "react";
 import { LocalisationContext } from "@/context";
 
 export default function Header() {
-  const { language, setLanguage, translations } =
-    useContext(LocalisationContext);
+  const { language, setLanguage, translations } = useContext(LocalisationContext);
   const handleChange = (event) => setLanguage(event.target.value);
 
   const navigate = useNavigate();
@@ -41,7 +40,7 @@ export default function Header() {
                 isActive ? "font-bold text-#F7C07B" : "text-white"
               }
             >
-              My Book
+              {translations[language].header.myBook || "My Book"}
             </NavLink>
           </li>
           <li>
@@ -52,23 +51,23 @@ export default function Header() {
             >
               <option value="en">English</option>
               <option value="de">Deutsch</option>
-              <option value="ch">中文</option>
+              <option value="zh">中文</option>
             </select>
           </li>
           {!token && (
             <select onChange={handleNavigation} className="bg-teal-400">
               <option value="/login" onChange={handleNavigation}>
-                Login
+                {translations[language].header.login || "Login"}
               </option>
               <option value="/register" onChange={handleNavigation}>
-                Register
+                {translations[language].header.register || "Register"}
               </option>
             </select>
           )}
           {token && (
             <li>
               <NavLink to="/login" onClick={handleLogout}>
-                Logout
+                {translations[language].header.logout || "Logout"}
               </NavLink>
             </li>
           )}
