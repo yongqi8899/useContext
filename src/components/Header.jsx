@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { LocalisationContext } from "@/context";
 
 export default function Header() {
@@ -7,6 +7,7 @@ export default function Header() {
   const handleChange = (event) => setLanguage(event.target.value);
 
   const navigate = useNavigate();
+  const openRef = useRef(null);
 
   const [token, setToken] = useState(!!localStorage.getItem("token"));
 
@@ -20,8 +21,12 @@ export default function Header() {
     navigate("/login");
   };
 
+  const handleOpen = () => {
+    openRef.current.removeAttribute("open");
+  }
+
   return (
-    <header className="fixed top-0 z-30 flex text-gray-700 align-middle bg-teal-400 navbar bold">
+    <header className="sticky top-0 z-30 flex text-gray-700 align-middle bg-teal-400 navbar bold">
       <div className="flex-1">
         <NavLink to="/" className="text-xl btn btn-ghost">
           <img
@@ -105,17 +110,17 @@ export default function Header() {
     //         </select>
     //       </li>
     //       <li>
-    //         <details>
+    //         <details ref={openRef}>
     //           <summary>Login</summary>
     //           <ul className="p-2 rounded-t-none bg-base-100">
-    //             <li>
+    //             <li onClick={handleOpen}>
     //               <NavLink
     //                 to="/login"
     //               >
     //                 Login
     //               </NavLink>
     //             </li>
-    //             <li>
+    //             <li onClick={handleOpen}>
     //               <NavLink
     //                 to="/register"
     //               >
