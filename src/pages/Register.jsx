@@ -3,31 +3,35 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Register() {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [firstname, setFirstname] = useState("");
+  // const [lastname, setLastname] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const registerUser = async (firstname, lastname, email, password) => {
+  const registerUser = async (formData) => {
     try {
-      const res = await fetch("https://bookstorebackend-3qw1.onrender.com/register/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstname,
-          lastname,
-          email,
-          password,
-        }),
-      });
+      const res = await fetch(
+        "https://bookstorebackend-3qw1.onrender.com/register/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (!res.ok) {
         setError(data.error || "Registration failed");
-        toast.error( "Registration failed");
+        toast.error("Registration failed");
         return null;
       }
       return data;
@@ -36,6 +40,9 @@ export default function Register() {
     }
   };
 
+  const handleOnchange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -68,8 +75,9 @@ export default function Register() {
                   type="text"
                   placeholder="Firstname"
                   className="input input-bordered"
-                  value={firstname}
-                  onChange={(e) => setFirstname(e.target.value)}
+                  value={formData.firstname}
+                  name="firstname"
+                  onChange={handleOnchange}
                 />
               </div>
               <div className="form-control">
@@ -80,8 +88,9 @@ export default function Register() {
                   type="text"
                   placeholder="Lastname"
                   className="input input-bordered"
-                  value={lastname}
-                  onChange={(e) => setLastname(e.target.value)}
+                  value={formData.lastname}
+                  name="lastname"
+                  onChange={handleOnchange}
                 />
               </div>
               <div className="flex form-control">
@@ -92,8 +101,9 @@ export default function Register() {
                   type="email"
                   placeholder="email"
                   className="input input-bordered"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={formData.email}
+                  name="email"
+                  onChange={handleOnchange}
                   required
                 />
               </div>
@@ -105,8 +115,9 @@ export default function Register() {
                   type="password"
                   placeholder="password"
                   className="input input-bordered"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={formData.password}
+                  name="password"
+                  onChange={handleOnchange}
                   required
                 />
               </div>

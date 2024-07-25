@@ -1,9 +1,9 @@
 export default function Footer() {
   return (
-    <footer className="fixed bottom-0 footer footer-center bg-teal-400 text-base-content p-4">
+    <footer className="fixed bottom-0 p-4 bg-teal-400 footer footer-center text-base-content">
       <aside>
         <p>
-          Copyright © Adnan Denis Gary Yongqi
+          Copyright © 
         </p>
       </aside>
     </footer>

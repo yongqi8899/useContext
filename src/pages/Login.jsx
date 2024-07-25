@@ -1,25 +1,23 @@
 import { useNavigate, NavLink } from "react-router-dom";
-import { useState } from "react";
+import {useState} from 'react';
 import { toast } from "react-toastify";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({  email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [isLoged, setIsLoged] = useState(false);
 
-  const loginProcess = async (email, password) => {
+  const loginProcess = async (formData) => {
     try {
       const res = await fetch('https://bookstorebackend-3qw1.onrender.com/login/login', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify(formData),
       });
 
       const data = await res.json();
@@ -40,7 +38,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const isLoged = await loginProcess(email, password);
+      const isLoged = await loginProcess(formData);
       if (isLoged) {
         navigate("/book");
         window.location.reload();
@@ -48,6 +46,10 @@ export default function Login() {
     } catch (error) {
       setError(error.message);
     }
+  };
+
+  const handleOnchange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
     <>
@@ -64,8 +66,9 @@ export default function Login() {
                   type="email"
                   placeholder="email"
                   className="input input-bordered"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={formData.email}
+                  name= "email"
+                  onChange={handleOnchange}
                   required
                 />
               </div>
@@ -77,8 +80,9 @@ export default function Login() {
                   type="password"
                   placeholder="password"
                   className="input input-bordered"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={formData.password}
+                  name="password"
+                  onChange={handleOnchange}
                   required
                 />
               </div>

@@ -21,7 +21,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 flex text-gray-700 align-middle bg-teal-400 navbar bold">
+    <header className="fixed top-0 z-30 flex text-gray-700 align-middle bg-teal-400 navbar bold">
       <div className="flex-1">
         <NavLink to="/" className="text-xl btn btn-ghost">
           <img
